@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Embeds - Discord Bot</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fab fa-discord"></i>
+                <h1>Generador de Embeds</h1>
+            </div>
+            <p class="subtitle">Crea embeds hermosos para Discord de forma fácil y visual</p>
+            <div id="authSection">
+                <button id="loginBtn" class="btn btn-primary"><i class="fab fa-discord"></i> Iniciar sesión con Discord</button>
+                <button id="logoutBtn" class="btn btn-secondary" style="display:none;"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+                <span id="userInfo" style="margin-left: 10px;"></span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="form-section">
+                <div class="form-card">
+                    <h2><i class="fas fa-edit"></i> Configuración del Embed</h2>
+                    <div id="guildsSection" style="margin-bottom: 20px;">
+                        <h3>Selecciona un servidor privado donde eres admin:</h3>
+                        <select id="guildSelect">
+                            <option value="">Selecciona un servidor...</option>
+                        </select>
+                        <select id="channelSelect" style="display:none; margin-left:10px;">
+                            <option value="">Selecciona un canal...</option>
+                        </select>
+                        <button id="sendEmbedBtn" class="btn btn-success" style="margin-left:10px; display:none;"><i class="fas fa-paper-plane"></i> Enviar Embed</button>
+                    </div>
+                    
+                    <form id="embedForm">
+                        <div class="form-group">
+                            <label for="titulo">
+                                <i class="fas fa-heading"></i> Título
+                            </label>
+                            <input type="text" id="titulo" name="titulo" placeholder="Título del embed">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">
+                                <i class="fas fa-align-left"></i> Descripción
+                            </label>
+                            <textarea id="descripcion" name="descripcion" rows="4" placeholder="Descripción del embed"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="color">
+                                <i class="fas fa-palette"></i> Color
+                            </label>
+                            <div class="color-input">
+                                <input type="color" id="colorPicker" value="#0099ff">
+                                <input type="text" id="color" name="color" value="#0099ff" placeholder="#0099ff">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imagen">
+                                <i class="fas fa-image"></i> Imagen Principal
+                            </label>
+                            <input type="url" id="imagen" name="imagen" placeholder="URL de la imagen">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="thumbnail">
+                                <i class="fas fa-thumbtack"></i> Thumbnail
+                            </label>
+                            <input type="url" id="thumbnail" name="thumbnail" placeholder="URL del thumbnail">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="footer">
+                                <i class="fas fa-shoe-prints"></i> Footer
+                            </label>
+                            <input type="text" id="footer" name="footer" placeholder="Texto del footer">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="previewBtn" class="btn btn-primary">
+                                <i class="fas fa-eye"></i> Vista Previa
+                            </button>
+                            <button type="button" id="generateCodeBtn" class="btn btn-secondary">
+                                <i class="fas fa-code"></i> Generar Código
+                            </button>
+                            <button type="button" id="generateCommandBtn" class="btn btn-success">
+                                <i class="fas fa-terminal"></i> Comando Discord
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <div class="preview-card">
+                    <h2><i class="fas fa-eye"></i> Vista Previa</h2>
+                    <div id="embedPreview" class="embed-preview">
+                        <div class="embed-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Tu embed aparecerá aquí</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-card" id="codeCard" style="display: none;">
+                    <h2><i class="fas fa-code"></i> Código Generado</h2>
+                    <div class="code-container">
+                        <pre id="generatedCode"></pre>
+                        <button id="copyCodeBtn" class="btn btn-small">
+                            <i class="fas fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="command-card" id="commandCard" style="display: none;">
+                    <h2><i class="fas fa-terminal"></i> Comando Discord</h2>
+                    <div class="command-container">
+                        <code id="generatedCommand"></code>
+                        <button id="copyCommandBtn" class="btn btn-small">
+                            <i class="fas fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="examples-section">
+            <h2><i class="fas fa-lightbulb"></i> Ejemplos de Embeds</h2>
+            <div class="examples-grid">
+                <div class="example-card" data-example="welcome">
+                    <h3>Bienvenida</h3>
+                    <p>Embed de bienvenida para nuevos miembros</p>
+                </div>
+                <div class="example-card" data-example="announcement">
+                    <h3>Anuncio</h3>
+                    <p>Embed para anuncios importantes</p>
+                </div>
+                <div class="example-card" data-example="event">
+                    <h3>Evento</h3>
+                    <p>Embed para eventos del servidor</p>
+                </div>
+                <div class="example-card" data-example="info">
+                    <h3>Información</h3>
+                    <p>Embed informativo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
